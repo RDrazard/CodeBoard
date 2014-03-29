@@ -87,18 +87,25 @@
                     <div class="heading">
                         <h2>Let's begin.</h2>
                         <div class="border"></div>
-                        <p>All you need is a Google+ or Facebook account to start using CodeBoard.</p>
+                        <h2>All you need is a Google+ or Facebook account to start using CodeBoard.</h2>
                     </div>
                     <div class="row">
                         <div class="col-lg-4 service animated hiding" data-animation="fadeInUp" data-delay="300">
-                            <i class="fa fa-globe fa-5x"></i>
-                            <h3><a href="#">Web Design</a></h3>
-                            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                            <span id="signinButton">
+                              <span
+                                class="g-signin"
+                                data-callback="signinCallback"
+                                data-clientid="CLIENT_ID"
+                                data-cookiepolicy="single_host_origin"
+                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                data-scope="https://www.googleapis.com/auth/plus.login">
+                              </span>
+                            </span>
+                            <h3><a href="#">Get Started with Google+</a></h3>
                         </div>
                         <div class="col-lg-4 service animated hiding" data-animation="fadeInUp" data-delay="600">
                             <i class="fa fa-cloud fa-5x"></i>
-                            <h3><a href="#">Web Development</a></h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque lau dantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>
+                            <h3><a href="#">Get Started with Facebook</a></h3>
                         </div>
                         <div class="col-lg-4 service animated hiding" data-animation="fadeInUp" data-delay="900">
                             <i class="fa fa-mobile fa-5x"></i>
@@ -417,5 +424,13 @@
         <script src="static/assets/js/jquery.appear.min.js"></script>
         <script src="static/assets/js/twitterFetcher.min.js"></script>
         <script src="static/assets/js/script.js"></script>
+        <!-- Place this asynchronous JavaScript just before your </body> tag -->
+        <script type="text/javascript">
+          (function() {
+           var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+           po.src = 'https://apis.google.com/js/client:plusone.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+         })();
+        </script>
     </body>
 </html>
