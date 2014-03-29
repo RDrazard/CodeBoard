@@ -87,7 +87,7 @@ def post_find_by_id(post_id):
 reserved_usernames = 'follow home signup login logout post static DEBUG'
 
 bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
-                                         'wsgi', 'views'))
+                                         'views'))
 
 def get_session():
   session = bottle.request.get_cookie('session', secret='secret')
@@ -261,6 +261,6 @@ def dbg_env():
 def static_file(filename):
   bottle.send_file(filename,
                    root= os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
-                                      'wsgi', 'static'))
+                                      'static'))
 
 application = bottle.default_app()
