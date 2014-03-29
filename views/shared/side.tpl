@@ -1,6 +1,6 @@
 <div id="side">
 	<p class="bio">
-		<img src="avatar-small.png" />{{username}}
+		<img src="{{ bottle.get_url('static', path='assets/img/avatar-small.png') }}" />{{username}}
 	</p>
 	<div>
 	<ul class="follow">

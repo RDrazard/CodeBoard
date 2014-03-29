@@ -86,8 +86,7 @@ def post_find_by_id(post_id):
 
 reserved_usernames = 'follow home signup login logout post static DEBUG'
 
-bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
-                                         'views'))
+bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'views'))
 
 def get_session():
   session = bottle.request.get_cookie('session', secret='secret')
@@ -257,21 +256,25 @@ def dbg_env():
               for key, value in sorted(os.environ.items())]
   return "<pre>env is\n%s</pre>" % '\n'.join(env_list)
 
-""" Static routes for serving files in the assets directory """
-@bottle.get('/<filename:re:.*\.js>')
-def scripts(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/js'))
-@bottle.get('/<filename:re:.*\.css>')
-def stylesheets(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/css'))
-@bottle.get('/<filename:re:.*\.(jpg|png|gif)>')
-def images(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/img'))
-@bottle.get('/<filename:re:.*\.(ico)>')
-def favicons(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/ico'))
-@bottle.get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
-def fonts(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/fonts'))
+@route('/static/<path_name:path>', name='static')
+def static(path):
+  return static_file(path, root='static')
+
+# """ Static routes for serving files in the assets directory """
+# @bottle.get('/<filename:re:.*\.js>')
+# def scripts(filename):
+#     return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/js'))
+# @bottle.get('/<filename:re:.*\.css>')
+# def stylesheets(filename):
+#     return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/css'))
+# @bottle.get('/<filename:re:.*\.(jpg|png|gif)>')
+# def images(filename):
+#     return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/img'))
+# @bottle.get('/<filename:re:.*\.(ico)>')
+# def favicons(filename):
+#     return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/ico'))
+# @bottle.get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+# def fonts(filename):
+#     return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/fonts'))
 
 application = bottle.default_app()
