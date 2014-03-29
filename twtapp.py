@@ -109,8 +109,7 @@ def index():
   if session:
     bottle.redirect('/home')
   return bottle.template('home_not_logged',
-                         logged=False,
-                         get_url = bottle.get_url)
+                         logged=False)
 
 @bottle.route('/home')
 def home():
@@ -130,8 +129,7 @@ def home():
                          userlist=user_list(),
                          page='timeline',
                          username=luser['_id'],
-                         logged=True,
-                         get_url = bottle.get_url)
+                         logged=True)
 
 @bottle.route('/<name>')
 def user_page(name):
@@ -155,8 +153,7 @@ def user_page(name):
                          username=tuser['_id'],
                          logged=True,
                          is_following=tuser['_id'] in luser['followee'],
-                         himself=himself,
-                         get_url = bottle.get_url)
+                         himself=himself)
   
 @bottle.route('/<name>/statuses/<id>')
 def status(name,id):
@@ -169,8 +166,7 @@ def status(name,id):
                          tweet_id=id,
                          tweet_text=post['content'],
                          page='single',
-                         logged=(session != None),
-                         get_url = bottle.get_url)
+                         logged=(session != None))
 
 @bottle.route('/post', method='POST')
 def post():
@@ -212,8 +208,7 @@ def get_login():
 			 page='login',
 			 error_login=False,
 			 error_signup=False,
-			 logged=False,
-       get_url = bottle.get_url)
+			 logged=False)
 
 @bottle.route('/login', method='POST')
 def post_login():
@@ -228,8 +223,7 @@ def post_login():
 			 page='login',
 			 error_login=True,
 			 error_signup=False,
-			 logged=False,
-       get_url = bottle.get_url)
+			 logged=False)
 
 @bottle.route('/logout')
 def logout():
@@ -250,8 +244,7 @@ def post_signup():
 			   page='login',
 			   error_login=False,
 			   error_signup=True,
-			   logged=False,
-         get_url = bottle.get_url)
+			   logged=False)
 
 @bottle.route('/DEBUG/cwd')
 def dbg_cwd():
@@ -268,3 +261,4 @@ def server_static(filename):
   return static_file(filename, root='static/assets')
 
 application = bottle.default_app()
+BaseTemplate.defaults['get_url'] = application.get_url
