@@ -256,7 +256,7 @@ def dbg_env():
               for key, value in sorted(os.environ.items())]
   return "<pre>env is\n%s</pre>" % '\n'.join(env_list)
 
-@bottle.route('/static/assets/<filename>', name='static')
+@bottle.route('/static/assets/<filename:path>', name='static')
 def server_static(filename):
   return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets'))
 
