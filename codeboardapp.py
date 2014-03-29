@@ -5,6 +5,7 @@ import os
 import uuid
 import bottle
 import pymongo
+from libs import oauth2client
 
 bottle.debug(True)
 
@@ -89,8 +90,21 @@ def annote_list(snippet):
   return l
 
 def user_auth(user, pw):
-  if not user: return False
-  return user['pw'] == pw
+# Create a state token to prevent request forgery.
+  # Store it in the session for later validation.
+  state = ''.join(random.choice(string.ascii_uppercase + string.digits)
+                  for x in xrange(32))
+  session['state'] = state
+  # Set the Client ID, Token State, and Application Name in the HTML while
+  # serving it.
+  response = make_response(
+      render_template('index.html',
+                      CLIENT_ID='604107449096-1d5g1d4g8h071vlstohq6c73i2q4acoj.apps.googleusercontent.com',
+                      STATE=state,
+                      APPLICATION_NAME='CodeBoard'))
+  
+  # if not user: return False
+  # return user['pw'] == pw
 
 def snippet_find_by_id(post_id):
   if not post_id: return None
@@ -202,25 +216,22 @@ def annote(snip):
     text = bottle.request.POST['text']
     annote_create(snip, luser, text)
 
-@bottle.route('/signup')
-@bottle.route('/login')
-def get_login():
-  session = get_session()
-  # bottle.TEMPLATES.clear()
-  if session: bottle.redirect('/home')
-  return bottle.template('login',
-			 page='login',
-			 error_login=False,
-			 error_signup=False,
-			 logged=False)
+# def get_login():
+#   session = get_session()
+#   # bottle.TEMPLATES.clear()
+#   if session: bottle.redirect('/home')
+#   return bottle.template('login',
+# 			 page='login',
+# 			 error_login=False,
+# 			 error_signup=False,
+# 			 logged=False)
 
-@bottle.route('/login', method='POST')
+@bottle.route('/oauth2callback', method='POST')
 def post_login():
-  if 'name' in bottle.request.POST and 'password' in bottle.request.POST:
-    name = bottle.request.POST['name']
-    password = bottle.request.POST['password']
-    user = user_find(name)
-    if user_auth(user, password):
+  if 'email' in bottle.request.POST and 'token' in bottle.request.POST:
+    email = bottle.request.POST['email']
+    user = user_find(email)
+    if user_auth(email, token):
       save_session(user['_id'])
       bottle.redirect('/home')
   return bottle.template('login',
