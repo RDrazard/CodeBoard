@@ -260,8 +260,6 @@ def dbg_env():
 
 @bottle.route('/static/assets/<filename:path>', name='static')
 def static_file(filename):
-  bottle.static_file(filename,
-                   root= os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
-                                      'static/assets'))
+  bottle.static_file(filename, root= os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets'))
 
 application = bottle.default_app()
