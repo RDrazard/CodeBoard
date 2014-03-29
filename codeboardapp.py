@@ -8,11 +8,10 @@ import pymongo
 
 bottle.debug(True)
 
-client = pymongo.Connection('localhost', 27017)
+client = pymongo.MongoClient('gamma-codeboard.rhcloud.com')
 
 mongo_db = client.codeboard
-mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
-                      os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
+mongo_db.authenticate('admin', 'FGI14xVEZ3uj')
 
 def user_find(userid):
   if not userid: return None
