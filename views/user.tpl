@@ -15,7 +15,7 @@
 	<div class="tweets">
 	%if postlist:
   	%for tweet in postlist:
-  		<p><img src="{{ get_url('static', filename='img/avatar.png') }}" /> <strong><a href="/{{tweet['uid']}}">{{tweet['uid']}}</a></strong> {{tweet['content']}}<span><a href="/{{username}}/statuses/{{tweet['_id']}}">permalink</a></span></p>
+  		<p><img src="img/avatar.png" /> <strong><a href="/{{tweet['uid']}}">{{tweet['uid']}}</a></strong> {{tweet['content']}}<span><a href="/{{username}}/statuses/{{tweet['_id']}}">permalink</a></span></p>
   	%end
   %else:
    <p>{{username}} has not posted yet</p>

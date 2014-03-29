@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>OpenShift Mongo Twt</title>
 		<link rel="stylesheet"
-		      href="{{ get_url('static', filename='css/retwis-py.css') }}"
+		      href="css/retwis-py.css"
 		      type="text/css" media="screen" />
 	</head>
 	<body class="{{header}}">
