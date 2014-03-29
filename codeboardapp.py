@@ -104,14 +104,14 @@ bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
 
 def get_session():
   session = bottle.request.get_cookie('session', secret='secret')
-  return session;
+  return session
 
 def save_session(uid):
   session = {}
   session['uid'] = uid
   session['sid'] = uuid.uuid4().hex
   bottle.response.set_cookie('session', session, secret='secret')
-  return session;
+  return session
 
 def invalidate_session():
   bottle.response.delete_cookie('session', secret='secret')
