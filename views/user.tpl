@@ -1,27 +1,13 @@
-%#list of currents posts
+%#user's profile page
 %include shared/header.tpl header=page,logged=logged
 <div id="main">
-	%if logged and not himself:
-		%if is_following:
-		<form action="/unfollow/{{username}}" method="post" accept-charset="utf-8" class="unfollow-user">	
-			<p><input type="submit" value="Unfollow {{username}}"></p>
-		</form>
-		%else:
-		<form action="/follow/{{username}}" method="post" accept-charset="utf-8" class="follow-user">	
-			<p><input type="submit" value="Follow {{username}}"></p>
-		</form>
-		%end
-	%end
-	<div class="tweets">
-	%if postlist:
-  	%for tweet in postlist:
-  		<p><img src="img/avatar.png" /> <strong><a href="/{{tweet['uid']}}">{{tweet['uid']}}</a></strong> {{tweet['content']}}<span><a href="/{{username}}/statuses/{{tweet['_id']}}">permalink</a></span></p>
-  	%end
-  %else:
-   <p>{{username}} has not posted yet</p>
-  %end
+	<img src="/static/assets/img/avatar.png" float="right"/>
+	<h1>{{username}}</h1>
+	<p>Here's some information about you.</p>
+	<div id="snippet-button", width=400, height=200, background-color="red">
+		<p>View {{username}}'s code.</p>
 	</div>
 </div>
-%include shared/side.tpl username=username,userlist=userlist
+%#include shared/side.tpl username=username,userlist=userlist
 	
 %include shared/footer.tpl
