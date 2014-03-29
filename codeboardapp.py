@@ -90,12 +90,11 @@ def annote_list(snippet):
   return l
 
 def user_auth(user, pw):
-  # if not user: return False
-  # return user['pw'] == pw
+  if not user: return False
+  return user['pw'] == pw
 
 def snippet_find_by_id(post_id):
-  if not post_id:
-    return None
+  if not post_id: return None
   return mongo_db.posts.find_one({ '_id': post_id})
 
 reserved_usernames = 'home signup login logout post static DEBUG note annote'
