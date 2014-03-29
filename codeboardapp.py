@@ -119,10 +119,7 @@ def invalidate_session():
 @bottle.route('/')
 def index():
   session = get_session()
-  if session:
-    bottle.redirect('/home')
-  return bottle.template('home_not_logged',
-                         logged=False)
+  return template('index')
 
 @bottle.route('/home')
 def home():
