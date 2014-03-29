@@ -1,4 +1,4 @@
 	</div>
-<script src="/static/app.js" type="text/javascript" charset="utf-8"></script>
+<script src="app.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
