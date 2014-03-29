@@ -5,5 +5,5 @@ setup(name='CodeBoard',
       description='A collaborative interface for developers to review code.',
       author='CodeBoard',
       author_email='alan.plotko@gmail.com',
-      install_requires=['pymongo', 'webob']
+      install_requires=['pymongo', 'WebOb']
      )
