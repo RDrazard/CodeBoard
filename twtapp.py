@@ -261,4 +261,3 @@ def server_static(filename):
   return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets'))
 
 application = bottle.default_app()
-SimpleTemplate.defaults['get_url'] = application.get_url
