@@ -15,4 +15,4 @@ try:
 except IOError:
     pass
 
-from twtapp import application
+from codeboardapp import application
