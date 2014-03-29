@@ -8,10 +8,10 @@ import pymongo
 
 bottle.debug(True)
 
-client = pymongo.MongoClient('127.11.138.130', 27017)
+client = pymongo.Connection('localhost', 27017)
 
 mongo_db = client.codeboard
-mongo_db.auth(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
+mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
                       os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
 
 def user_find(userid):
