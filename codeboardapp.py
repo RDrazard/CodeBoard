@@ -117,7 +117,7 @@ def invalidate_session():
   bottle.response.delete_cookie('session', secret='secret')
   return
 
-@bottle.route('/', method="GET")
+@bottle.route('/')
 def index():
   # Create a state token to prevent request forgery.
   # Store it in the session for later validation.
