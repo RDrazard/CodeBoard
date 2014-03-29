@@ -109,7 +109,8 @@ def index():
   if session:
     bottle.redirect('/home')
   return bottle.template('home_not_logged',
-                         logged=False)
+                         logged=False,
+                         get_url = bottle.get_url)
 
 @bottle.route('/home')
 def home():
@@ -129,7 +130,8 @@ def home():
                          userlist=user_list(),
                          page='timeline',
                          username=luser['_id'],
-                         logged=True)
+                         logged=True,
+                         get_url = bottle.get_url)
 
 @bottle.route('/<name>')
 def user_page(name):
@@ -153,7 +155,8 @@ def user_page(name):
                          username=tuser['_id'],
                          logged=True,
                          is_following=tuser['_id'] in luser['followee'],
-                         himself=himself)
+                         himself=himself,
+                         get_url = bottle.get_url)
   
 @bottle.route('/<name>/statuses/<id>')
 def status(name,id):
@@ -166,7 +169,8 @@ def status(name,id):
                          tweet_id=id,
                          tweet_text=post['content'],
                          page='single',
-                         logged=(session != None))
+                         logged=(session != None),
+                         get_url = bottle.get_url)
 
 @bottle.route('/post', method='POST')
 def post():
@@ -208,7 +212,8 @@ def get_login():
 			 page='login',
 			 error_login=False,
 			 error_signup=False,
-			 logged=False)
+			 logged=False,
+       get_url = bottle.get_url)
 
 @bottle.route('/login', method='POST')
 def post_login():
@@ -223,7 +228,8 @@ def post_login():
 			 page='login',
 			 error_login=True,
 			 error_signup=False,
-			 logged=False)
+			 logged=False,
+       get_url = bottle.get_url)
 
 @bottle.route('/logout')
 def logout():
@@ -244,7 +250,8 @@ def post_signup():
 			   page='login',
 			   error_login=False,
 			   error_signup=True,
-			   logged=False)
+			   logged=False,
+         get_url = bottle.get_url)
 
 @bottle.route('/DEBUG/cwd')
 def dbg_cwd():
@@ -256,21 +263,8 @@ def dbg_env():
               for key, value in sorted(os.environ.items())]
   return "<pre>env is\n%s</pre>" % '\n'.join(env_list)
 
-""" Static routes for serving files in the assets directory """
-@bottle.get('/<filename:re:.*\.js>')
-def scripts(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/js'))
-@bottle.get('/<filename:re:.*\.css>')
-def stylesheets(filename):
-    return bottle.tatic_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/css'))
-@bottle.get('/<filename:re:.*\.(jpg|png|gif)>')
-def images(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/img'))
-@bottle.get('/<filename:re:.*\.(ico)>')
-def favicons(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/ico'))
-@bottle.get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
-def fonts(filename):
-    return bottle.static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/fonts'))
+@bottle.route('/static/assets/<filename>', name='static')
+def server_static(filename):
+  return static_file(filename, root='static/assets')
 
 application = bottle.default_app()
