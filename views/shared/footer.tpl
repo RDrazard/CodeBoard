@@ -1,4 +1,4 @@
 	</div>
-<script src="{{ get_url('static', path='assets/js/app.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="/static/assets/js/app.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
