@@ -5,7 +5,6 @@ import os
 import uuid
 import bottle
 import pymongo
-from libs import oauth2client
 
 bottle.debug(True)
 
@@ -104,14 +103,14 @@ bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
 
 def get_session():
   session = bottle.request.get_cookie('session', secret='secret')
-  return session
+  return session;
 
 def save_session(uid):
   session = {}
   session['uid'] = uid
   session['sid'] = uuid.uuid4().hex
   bottle.response.set_cookie('session', session, secret='secret')
-  return session
+  return session;
 
 def invalidate_session():
   bottle.response.delete_cookie('session', secret='secret')
@@ -119,84 +118,11 @@ def invalidate_session():
 
 @bottle.route('/')
 def index():
-  # Create a state token to prevent request forgery.
-  # Store it in the session for later validation.
-  state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                  for x in range(32))
-  session['state'] = state
-  # Set the Client ID, Token State, and Application Name in the HTML while
-  # serving it.
-  response = make_response(
-      render_template('index.html',
-                      CLIENT_ID='604107449096-1d5g1d4g8h071vlstohq6c73i2q4acoj.apps.googleusercontent.com',
-                      STATE=state,
-                      APPLICATION_NAME='CodeBoard'))
-
   session = get_session()
   if session:
     bottle.redirect('/home')
   return bottle.template('home_not_logged',
                          logged=False)
-
-@bottle.route('/oauth2callback', method="POST"):
-def connect():
-  # Ensure that the request is not a forgery and that the user sending
-  # this connect request is the expected user.
-  if request.args.get('state', '') != session['state']:
-    response = make_response(json.dumps('Invalid state parameter.'), 401)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-
-  del session['state']
-
-  gplus_id = request.args.get('gplus_id')
-  code = request.data
-
-  try:
-    # Upgrade the authorization code into a credentials object
-    oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
-    oauth_flow.redirect_uri = 'postmessage'
-    credentials = oauth_flow.step2_exchange(code)
-  except FlowExchangeError:
-    response = make_response(
-        json.dumps('Failed to upgrade the authorization code.'), 401)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-
-  # Check that the access token is valid.
-  access_token = credentials.access_token
-  url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
-         % access_token)
-  h = httplib2.Http()
-  result = json.loads(h.request(url, 'GET')[1])
-  # If there was an error in the access token info, abort.
-  if result.get('error') is not None:
-    response = make_response(json.dumps(result.get('error')), 500)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-  # Verify that the access token is used for the intended user.
-  if result['user_id'] != gplus_id:
-    response = make_response(
-        json.dumps("Token's user ID doesn't match given user ID."), 401)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-  # Verify that the access token is valid for this app.
-  if result['issued_to'] != CLIENT_ID:
-    response = make_response(
-        json.dumps("Token's client ID does not match app's."), 401)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-  stored_credentials = session.get('credentials')
-  stored_gplus_id = session.get('gplus_id')
-  if stored_credentials is not None and gplus_id == stored_gplus_id:
-    response = make_response(json.dumps('Current user is already connected.'),
-                             200)
-    response.headers['Content-Type'] = 'application/json'
-    return response
-  # Store the access token in the session for later use.
-  session['credentials'] = credentials
-  session['gplus_id'] = gplus_id
-  response = make_response(json.dumps('Successfully connected user.', 200))
 
 @bottle.route('/home')
 def home():
@@ -276,22 +202,25 @@ def annote(snip):
     text = bottle.request.POST['text']
     annote_create(snip, luser, text)
 
-# def get_login():
-#   session = get_session()
-#   # bottle.TEMPLATES.clear()
-#   if session: bottle.redirect('/home')
-#   return bottle.template('login',
-# 			 page='login',
-# 			 error_login=False,
-# 			 error_signup=False,
-# 			 logged=False)
+@bottle.route('/signup')
+@bottle.route('/login')
+def get_login():
+  session = get_session()
+  # bottle.TEMPLATES.clear()
+  if session: bottle.redirect('/home')
+  return bottle.template('login',
+			 page='login',
+			 error_login=False,
+			 error_signup=False,
+			 logged=False)
 
-@bottle.route('/oauth2callback', method='POST')
+@bottle.route('/login', method='POST')
 def post_login():
-  if 'email' in bottle.request.POST and 'token' in bottle.request.POST:
-    email = bottle.request.POST['email']
-    user = user_find(email)
-    if user_auth(email, token):
+  if 'name' in bottle.request.POST and 'password' in bottle.request.POST:
+    name = bottle.request.POST['name']
+    password = bottle.request.POST['password']
+    user = user_find(name)
+    if user_auth(user, password):
       save_session(user['_id'])
       bottle.redirect('/home')
   return bottle.template('login',
