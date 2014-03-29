@@ -256,7 +256,7 @@ def dbg_env():
               for key, value in sorted(os.environ.items())]
   return "<pre>env is\n%s</pre>" % '\n'.join(env_list)
 
-@route('/static/<path_name:path>', name='static')
+@bottle.route('/static/<path_name:path>', name='static')
 def static(path):
   return static_file(path, root='static')
 
