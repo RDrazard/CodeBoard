@@ -8,7 +8,7 @@ import pymongo
 
 bottle.debug(True)
 
-client = pymongo.MongoClient('127.11.138.130', 27014)
+client = pymongo.MongoClient('127.11.138.130', 27017)
 
 mongo_db = client.codeboard
 mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
