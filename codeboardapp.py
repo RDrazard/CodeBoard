@@ -5,11 +5,10 @@ import os
 import uuid
 import bottle
 import pymongo
-from pymongo import MongoClient
 
 bottle.debug(True)
 
-client = MongoClient()
+client = pymongo.MongoClient('127.11.138.130', 27014)
 
 mongo_db = client.codeboard
 mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
