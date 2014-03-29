@@ -11,7 +11,7 @@ bottle.debug(True)
 client = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_HOST'],
                                         int(os.environ['OPENSHIFT_MONGODB_DB_PORT']))
 
-mongo_db = mongo_con[os.con['OPENSHIFT_APP_NAME']]
+mongo_db = client[os.environ['OPENSHIFT_APP_NAME']]
 mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
                       os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'])
 
