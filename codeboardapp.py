@@ -175,8 +175,8 @@ def board(name,id):
                          snip_id=id,
                          code=post['code'],
                          page='snip',
-                         annotes=annote_list(snippet)
-                         notes=note_list(snippet)
+                         annotes=annote_list(snippet),
+                         notes=note_list(snippet),
                          logged=(session != None))
 
 @bottle.route('/note/<snip>', method='POST')
