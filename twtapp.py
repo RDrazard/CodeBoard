@@ -8,8 +8,6 @@ import pymongo
 
 bottle.debug(True)
 
-SimpleTemplate.defaults['get_url'] = bottle.get_url
-
 mongo_con = pymongo.Connection(os.environ['OPENSHIFT_MONGODB_DB_HOST'],
                                int(os.environ['OPENSHIFT_MONGODB_DB_PORT']))
 
@@ -263,3 +261,4 @@ def server_static(filename):
   return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets'))
 
 application = bottle.default_app()
+SimpleTemplate.defaults['get_url'] = application.get_url
