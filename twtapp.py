@@ -256,8 +256,21 @@ def dbg_env():
               for key, value in sorted(os.environ.items())]
   return "<pre>env is\n%s</pre>" % '\n'.join(env_list)
 
-@bottle.route('/static/assets/:filename')
-def static_file(filename):
-  bottle.send_file(filename, root= os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets'))
+""" Static routes for serving files in the assets directory """
+@bottle.get('/<filename:re:.*\.js>')
+def scripts(filename):
+    return static_file(filename, root='static/assets/js')
+@bottle.get('/<filename:re:.*\.css>')
+def stylesheets(filename):
+    return static_file(filename, root='static/assets/css')
+@bottle.get('/<filename:re:.*\.(jpg|png|gif)>')
+def images(filename):
+    return static_file(filename, root='static/assets/img')
+@bottle.get('/<filename:re:.*\.(ico)>')
+def favicons(filename):
+    return static_file(filename, root='static/assets/ico')
+@bottle.get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+def fonts(filename):
+    return static_file(filename, root='static/assets/fonts')
 
 application = bottle.default_app()
