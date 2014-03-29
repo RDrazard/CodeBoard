@@ -15,4 +15,4 @@ try:
 except IOError:
     pass
 
-import codeboard.application
+from codeboardapp import application
