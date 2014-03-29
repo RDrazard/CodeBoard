@@ -4,7 +4,7 @@
 	<img src="/static/assets/img/avatar.png" float="right"/>
 	<h1>{{username}}</h1>
 	<p>Here's some information about you.</p>
-	<div id="snippet-button", width=400, height=200, background-color="red">
+	<div id="snippet-button", width=400, height=200, background-color="FF0000">
 		<p>View {{username}}'s code.</p>
 	</div>
 </div>
