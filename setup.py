@@ -1,11 +1,9 @@
 from setuptools import setup
 
-setup(name='OpenShift Mongo Twt',
+setup(name='CodeBoard',
       version='1.0',
-      description='OpenShift Twitter clone using MongoDB',
-      author='Mark Atwood',
-      author_email='matwood@redhat.com',
-      url='https://github.com/openshift/openshift-twt-mongo-demo',
-      # dont install bottle requirement, bottle is included in source
+      description='A collaborative interface for developers to review code.',
+      author='CodeBoard',
+      author_email='alan.plotko@gmail.com',
       install_requires=['pymongo'],
      )
