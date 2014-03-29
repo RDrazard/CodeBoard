@@ -259,18 +259,18 @@ def dbg_env():
 """ Static routes for serving files in the assets directory """
 @bottle.get('/<filename:re:.*\.js>')
 def scripts(filename):
-    return static_file(filename, root='static/assets/js')
+    return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/js'))
 @bottle.get('/<filename:re:.*\.css>')
 def stylesheets(filename):
-    return static_file(filename, root='static/assets/css')
+    return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/css'))
 @bottle.get('/<filename:re:.*\.(jpg|png|gif)>')
 def images(filename):
-    return static_file(filename, root='static/assets/img')
+    return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/img'))
 @bottle.get('/<filename:re:.*\.(ico)>')
 def favicons(filename):
-    return static_file(filename, root='static/assets/ico')
+    return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/ico'))
 @bottle.get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
-    return static_file(filename, root='static/assets/fonts')
+    return static_file(filename, root=os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'static/assets/fonts'))
 
 application = bottle.default_app()
