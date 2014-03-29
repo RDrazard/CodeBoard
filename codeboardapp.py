@@ -129,6 +129,10 @@ def index():
   # session = get_session()
   return bottle.template('index')
 
+@bottle.route('/dashboard')
+def dashboard():
+  return bottle.template('dashboard')
+
 @bottle.route('/home')
 def home():
   session = get_session()
