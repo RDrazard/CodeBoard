@@ -145,7 +145,7 @@ def connect():
   if request.args.get('state', '') != session['state']:
     response = make_response(json.dumps('Invalid state parameter.'), 401)
     response.headers['Content-Type'] = 'application/json'
-  return response
+    return response
 
   del session['state']
 
