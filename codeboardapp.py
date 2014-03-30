@@ -154,37 +154,24 @@ def post_snippet():
   luser = user_find(session['uid'])
   if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
-  return bottle.template('dashboard',
-                         page='dashboard',
-                         username=luser['_id'],
-                         logged=True)
+  snippet_create(luser['_id'], 'print("Hello world")')
 
-@bottle.route('/<name>/snippets')
-def snippet_page(name):
+@bottle.route('/snippets/<id>')
+def snippet_page(id):
     session = get_session()
     luser = user_find(session['uid'])
     if not luser: bottle.redirect('/logout')
-    tuser = user_find(name)
-
-    return bottle.template('snippets',
-                            snippet_list=snippet_list(),
-                            page='snippets',
-                            username=tuser['_id'])
-  
-@bottle.route('/<name>/snippets/<id>')
-def board(name,id):
-  session = get_session()
-  snippet = snippet_find_by_id(id)
-  if not snippet:
-    return bottle.HTTPError(code=404, message='snippet not found')
-  return bottle.template('snip',
-                         username=post['uid'],
-                         snip_id=id,
-                         code=post['code'],
-                         page='snip',
-                         annotes=annote_list(snippet),
-                         notes=note_list(snippet),
-                         logged=(session != None))
+    snippet = snippet_find_by_id(id)
+    if not snippet:
+        return bottle.HTTPError(code=404, message='snippet not found')
+    return bottle.template('snips',
+                            author=snippet['uid'],
+                            snip_id=id,
+                            code=snippet['code'],
+                            page='snips',
+                            annotes=annote_list(snippet),
+                            notes=note_list(snippet),
+                            logged=(session != None))
 
 @bottle.route('/note/<snip>', method='POST')
 def note(snip):
