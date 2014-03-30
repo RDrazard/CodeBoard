@@ -157,7 +157,7 @@ def post_snippet():
   # bottle.TEMPLATES.clear()
   if 'code' in bottle.request.POST:
     s_id = snippet_create(luser, bottle.request.POST['code'])
-  bottle.redirect('/snippets/' + s_id)
+    bottle.redirect('/snippets/' + s_id)
 
 @bottle.route('/snippets/<id>')
 def snippet_page(id):
