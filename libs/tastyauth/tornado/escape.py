@@ -20,7 +20,7 @@ Also includes a few other miscellaneous string manipulation functions that
 have crept in over time.
 """
 
-import htmlentitydefs
+import html.entities
 import re
 import sys
 import urllib
@@ -319,7 +319,7 @@ def _convert_entity(m):
 
 def _build_unicode_map():
     unicode_map = {}
-    for name, value in htmlentitydefs.name2codepoint.iteritems():
+    for name, value in html.entities.name2codepoint.iteritems():
         unicode_map[name] = unichr(value)
     return unicode_map
 
