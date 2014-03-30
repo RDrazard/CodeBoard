@@ -34,17 +34,16 @@ def index():
     # check for pre existance
     tuser = user_find(data.get('email'))
     if tuser:
-      result = 'You are already registered!'
+      return bottle.template('index', result='You are already registered!')
     else:
       nuser = {
         '_id': data.get('email'),
         'pw': data.get('password')
       }
       userid = mongo_db.users.insert(nuser)
-      result = 'You\'ve been signed up!'
+      return bottle.template('welcome', result='You\'ve been signed up!', email=data.get('email'))
   else:
-    result = None
-  return bottle.template('index', result=result)
+    return bottle.template('index', result=None)
 
 @bottle.route('/')
 def index():
