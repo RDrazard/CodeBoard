@@ -27,10 +27,10 @@ class Twitter(object):
 
         try:
             auth.authorize_redirect(self.callback_url)
-        except HTTPRedirect, e:
+        except HTTPRedirect as e:
             log.debug('Redirecting Twitter user to {0}'.format(e.url))
             return e.url
-        except KeyError, e:
+        except KeyError as e:
             log.warning('Negotiation error for Twitter user')
             raise NegotiationError
         return None
@@ -91,7 +91,7 @@ class Facebook(object):
                 client_id=self.settings['facebook_api_key'],
                 extra_params={'scope': self.scope})
 
-        except HTTPRedirect, e:
+        except HTTPRedirect as e:
             log.debug('Redirecting Facebook user to {0}'.format(e.url))
             return e.url
         return None
@@ -159,7 +159,7 @@ class Google(object):
             auth.authenticate_redirect(
                     callback_uri=self.callback_url,
                     ax_attrs=ax_attrs)
-        except HTTPRedirect, e:
+        except HTTPRedirect as e:
             log.debug('Redirecting Google user to {0}'.format(e.url))
             return e.url
         return None
