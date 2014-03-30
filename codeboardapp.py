@@ -135,20 +135,16 @@ def invalidate_session():
 
 @bottle.route('/dashboard')
 def dashboard():
-  return bottle.template('dashboard')
-
-@bottle.route('/home')
-def home():
   session = get_session()
   if not session: bottle.redirect('/login')
   luser = user_find(session['uid'])
   if not luser: bottle.redirect('/logout')
   
   # bottle.TEMPLATES.clear()
-  return bottle.template('timeline',
+  return bottle.template('dashboard',
                          postlist=postlist,
                          userlist=user_list(),
-                         page='timeline',
+                         page='dashboard',
                          username=luser['_id'],
                          logged=True)
 
@@ -215,7 +211,7 @@ def annote(snip):
     text = bottle.request.POST['text']
     annote_create(snip, luser, text)
 
-@bottle.route('/signup')
+# @bottle.route('/signup')
 @bottle.route('/login')
 def get_login():
   session = get_session()
@@ -235,7 +231,7 @@ def post_login():
     user = user_find(email)
     if user_auth(user, password):
       save_session(user['_id'])
-      bottle.redirect('/home')
+      bottle.redirect('/dashboard')
   return bottle.template('login',
 			 page='login',
 			 error_login=True,
@@ -247,21 +243,21 @@ def logout():
   invalidate_session()
   bottle.redirect('/')
 
-@bottle.route('/signup', method='POST')
-def post_signup():
-  if 'name' in bottle.request.POST and 'password' in bottle.request.POST:
-    name = bottle.request.POST['name']
-    password = bottle.request.POST['password']
-    if name not in reserved_usernames.split():
-      userid = user_create(name, password)
-      if userid:
-        save_session(userid)
-        bottle.redirect('/home')
-    return bottle.template('login',
-			   page='login',
-			   error_login=False,
-			   error_signup=True,
-			   logged=False)
+# @bottle.route('/signup', method='POST')
+# def post_signup():
+#   if 'name' in bottle.request.POST and 'password' in bottle.request.POST:
+#     name = bottle.request.POST['name']
+#     password = bottle.request.POST['password']
+#     if name not in reserved_usernames.split():
+#       userid = user_create(name, password)
+#       if userid:
+#         save_session(userid)
+#         bottle.redirect('/home')
+#     return bottle.template('login',
+# 			   page='login',
+# 			   error_login=False,
+# 			   error_signup=True,
+# 			   logged=False)
 
 @bottle.route('/DEBUG/cwd')
 def dbg_cwd():
