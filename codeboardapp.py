@@ -167,6 +167,7 @@ def snippet_page(id):
     return bottle.template('snips',
                             author=snippet['uid'],
                             snip_id=id,
+                            snippet=snippet,
                             code=snippet['code'],
                             page='snips',
                             annotes=annote_list(snippet),
