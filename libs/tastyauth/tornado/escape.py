@@ -1,3 +1,4 @@
+from __future__ import absolute_import, division, print_function, with_statement
 _HTML_UNICODE_MAP = _build_unicode_map()
 #!/usr/bin/env python
 #
@@ -20,8 +21,6 @@ _HTML_UNICODE_MAP = _build_unicode_map()
 Also includes a few other miscellaneous string manipulation functions that
 have crept in over time.
 """
-
-from __future__ import absolute_import, division, print_function, with_statement
 
 import re
 import sys
