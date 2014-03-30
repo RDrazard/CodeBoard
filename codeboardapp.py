@@ -30,18 +30,20 @@ def user_find(email):
 @bottle.route('/', method="POST")
 def user_create():
   data = bottle.request.forms
-  if not data.get('email'): return None
-  # check for pre existance
-  tuser = user_find(data.get('email'))
-  if tuser:
-    result = 'You are already registered!'
+  if data.get('email'):
+    # check for pre existance
+    tuser = user_find(data.get('email'))
+    if tuser:
+      result = 'You are already registered!'
+    else:
+      nuser = {
+        '_id': data.get('email'),
+        'pw': data.get('password')
+      }
+      userid = mongo_db.users.insert(nuser)
+      result = 'You\'ve been signed up!'
   else:
-    nuser = {
-      '_id': data.get('email'),
-      'pw': data.get('password')
-    }
-    userid = mongo_db.users.insert(nuser)
-    result = 'You\'ve been signed up!'
+    result = None
   return bottle.template('index', result=result)
 
 def snippet_create(user, code):
@@ -127,11 +129,6 @@ def save_session(uid):
 def invalidate_session():
   bottle.response.delete_cookie('session', secret='secret')
   return
-
-@bottle.route('/', method="GET")
-def index():
-  # session = get_session()
-  return bottle.template('index')
 
 @bottle.route('/dashboard')
 def dashboard():
