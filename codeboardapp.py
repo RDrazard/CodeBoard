@@ -148,6 +148,10 @@ def dashboard():
                          username=luser['_id'],
                          logged=True)
 
+@bottle.route('/snippets')
+def show_snippets():
+  return bottle.template('snips')
+
 @bottle.route('/snippets', method="POST")
 def post_snippet():
   session = get_session()
@@ -155,6 +159,7 @@ def post_snippet():
   if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
   snippet_create(luser, 'print("Hello world")')
+  bottle.redirect('/snippets')
 
 @bottle.route('/snippets/<id>')
 def snippet_page(id):
