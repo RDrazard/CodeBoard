@@ -32,7 +32,10 @@
                 position: relative;
                 width: 600px;
                 height: 400px;
+                margin: 0 auto;
             }
+            .post-snippet { margin: 20px auto; width: 200px; }
+            .snippet { padding: 20px 0; }
         </style>
     </head>
     <body>
@@ -66,12 +69,11 @@
         </div>
         <section id="get-started" class="page">
             <div class="container">
-                <div class="content text-center">
+                <div class="content text-center snippet">
                     <div class="heading">
                         <h2>Let's begin.</h2>
                         <div class="border"></div>
                         <h3>Type in a snippet and submit it for review.<br /></h3>
-                        <hr />
                     </div>
                 </div>
                 <form class="form-signin", role="form", action="/dashboard", method="post">
@@ -81,7 +83,7 @@
                             return x;
                         }
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block login-button" type="submit">Post Snippet</button>
+                    <button class="btn btn-lg btn-primary btn-block post-snippet" type="submit">Post Snippet</button>
                 </form>
             </div>
         </section>
