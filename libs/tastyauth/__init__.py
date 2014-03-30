@@ -1,2 +1,1 @@
-from auth import Twitter, Google, Facebook, UserDenied, NegotiationError
-
+from tastyauth.auth import Twitter, Google, Facebook, UserDenied, NegotiationError
