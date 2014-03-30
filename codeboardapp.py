@@ -48,7 +48,7 @@ def index():
 
 @bottle.route('/', method="GET")
 def index():
-  return bottle.template('index', result=None)
+  return bottle.template('index')
 
 def snippet_create(user, code):
   nsnippet = {
