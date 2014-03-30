@@ -18,7 +18,7 @@
 http://code.google.com/appengine/docs/urlfetch/
 """
 
-import httplib
+import http.client
 import socket
 import urllib.parse
 
@@ -32,10 +32,10 @@ DELETE = 'DELETE'
 MAX_REDIRECTS = 5
 
 REDIRECT_STATUSES = frozenset([
-  httplib.MOVED_PERMANENTLY,
-  httplib.FOUND,
-  httplib.SEE_OTHER,
-  httplib.TEMPORARY_REDIRECT,
+  http.client.MOVED_PERMANENTLY,
+  http.client.FOUND,
+  http.client.SEE_OTHER,
+  http.client.TEMPORARY_REDIRECT,
 ])
 
 class SyncHTTPClient(object):
@@ -54,9 +54,9 @@ class SyncHTTPClient(object):
             scheme, host, path, params, query, fragment = urllib.parse.urllib.parse(url)
             try:
                 if scheme == 'http':
-                    connection = httplib.HTTPConnection(host)
+                    connection = http.client.HTTPConnection(host)
                 elif scheme == 'https':
-                    connection = httplib.HTTPSConnection(host)
+                    connection = http.client.HTTPSConnection(host)
                 else:
                     raise InvalidURLError('Protocol \'%s\' is not supported.')
 
@@ -98,7 +98,7 @@ class SyncHTTPClient(object):
                         response.headers[header_key] = header_value
                     return response
 
-            except (httplib.error, socket.error, IOError) as e:
+            except (http.client.error, socket.error, IOError) as e:
                 response = Response()
                 response.request = Request(full_path)
                 response.error = str(e) or 'unknown error'
