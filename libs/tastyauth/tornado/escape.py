@@ -220,8 +220,7 @@ def recursive_unicode(obj):
 # but it gets all exponential on certain patterns (such as too many trailing
 # dots), causing the regex matcher to never return.
 # This regex should avoid those problems.
-_URL_RE = re.compile(ur"""\b((?:([\w-]+):(/{1,3})|www[.])(?:(?:(?:[^\s&()]|&amp;|&quot;)*(?:[^!"#$%&'()*+,.:;<=>?@\[\]^`{|}~\s]))|(?:\((?:[^\s&()]|&amp;|&quot;)*\)))+)""")
-
+_URL_RE = re.compile(r"""\b((?:([\w-]+):(/{1,3})|www[.])(?:(?:(?:[^\s&()]|&amp;|&quot;)*(?:[^!"#$%&'()*+,.:;<=>?@\[\]^`{|}~\s]))|(?:\((?:[^\s&()]|&amp;|&quot;)*\)))+)""")
 
 def linkify(text, shorten=False, extra_params="",
             require_protocol=False, permitted_protocols=["http", "https"]):
