@@ -128,7 +128,7 @@ def invalidate_session():
   bottle.response.delete_cookie('session', secret='secret')
   return
 
-@bottle.route('/')
+@bottle.route('/', method="GET")
 def index():
   # session = get_session()
   return bottle.template('index')
