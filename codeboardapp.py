@@ -229,10 +229,10 @@ def get_login():
 
 @bottle.route('/login', method='POST')
 def post_login():
-  if 'name' in bottle.request.POST and 'password' in bottle.request.POST:
-    name = bottle.request.POST['name']
+  if 'email' in bottle.request.POST and 'password' in bottle.request.POST:
+    email = bottle.request.POST['email']
     password = bottle.request.POST['password']
-    user = user_find(name)
+    user = user_find(email)
     if user_auth(user, password):
       save_session(user['_id'])
       bottle.redirect('/home')
