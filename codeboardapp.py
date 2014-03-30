@@ -23,22 +23,26 @@ mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
 #                      os.environ['OPENSHIFT_MONGODB_DB_PASSWORD'],
 #                      'codeboard')
 
-def user_find(userid):
-  if not userid: return None
-  return mongo_db.users.find_one({ '_id': userid})
+def user_find(email):
+  if not email: return None
+  return mongo_db.users.find_one({ '_id': email})
 
-def user_create(username, password):
-  if not username: return None
+@bottle.route('/', method="POST")
+def user_create():
+  data = bottle.request.forms
+  if not data['email']: return None
   # check for pre existance
-  tuser = user_find(username)
-  if tuser: return None
-
-  nuser = {
-    '_id': username,
-    'pw': password
+  tuser = user_find(data['email'])
+  if tuser:
+    result = 'You are already registered!'
+  else:
+    nuser = {
+      '_id': data['email'],
+      'pw': data['password']
     }
   userid = mongo_db.users.insert(nuser)
-  return userid
+  result = 'You\'ve been signed up!'
+  return bottle.template('index', result=result)
 
 def snippet_create(user, code):
   nsnippet = {

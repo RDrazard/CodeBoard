@@ -95,7 +95,10 @@
                 <div class="content text-center">
                     <div class="heading">
                         <h2>There's no hassle, so let's begin.</h2>
-                        <div class="border"></div>
+                        <div class="border"></div> 
+                        % if defined('result'):
+                            <legend>{{ get('result') }}</legend>
+                        % end
                         <form class="pure-form pure-form-stacked">
                             <fieldset>
                                 <label for="email">Email Address</label>
