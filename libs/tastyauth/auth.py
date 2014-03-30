@@ -1,8 +1,8 @@
 from urlparse import urlparse
 import re
 
-from tastyauth.tornado.auth import TwitterMixin, GoogleMixin, FacebookGraphMixin
-from tastyauth.tornado.auth import HTTPRedirect
+from tornado.auth import TwitterMixin, GoogleMixin, FacebookGraphMixin
+from tornado.auth import HTTPRedirect
 import logging
 
 log = logging.getLogger('tastyauth.auth')
