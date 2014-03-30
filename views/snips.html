@@ -60,21 +60,23 @@
             </nav>
         </div>
         <section id="get-started" class="page">
-            <div id="main-content">
-            <h1>{{author}}'s Snippet</h1>
-            <div id="codeboard">
-                <div style="float: left; width: 200px;"></div>
-                <div id='snippet' style="float: left; width: 200px;">
-                    <pre class="prettyprint">{{code}}</pre>
+            <div class="container">
+                <div class="content text-center">
+                    <h1>{{author}}'s Snippet</h1>
+                    <div id="codeboard">
+                        <div style="float: left; width: 200px;"></div>
+                        <div id='snippet' style="float: left; width: 200px;">
+                            <pre class="prettyprint">{{code}}</pre>
+                        </div>
+                        <div style="float: left; width: 200px;">
+                            <ul>
+                            %for annote in annotes:
+                                <li>{{annote['uid']}} annoted: {{annote['text']}}</li>
+                            %end
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div style="float: left; width: 200px;">
-                    <ul>
-                    %for annote in annotes:
-                        <li>{{annote['uid']}} annoted: {{annote['text']}}</li>
-                    %end
-                    </ul>
-                </div>
-            </div>
             <form method="POST" action="/annote/{{snippet}}" id="add-annote">
                 <p><input type="text", name="annote", id="annote-input"/></p>
                 <p><input type="submit" value="Submit Annote"/></p>
