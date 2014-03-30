@@ -53,7 +53,7 @@ def snippet_create(user, code):
   nsnippet = {
     '_id': uuid.uuid4().hex,
     'uid': user['_id'],
-    'code': snippet
+    'code': code
     }
   mongo_db.snippets.insert(nsnippet)
 
