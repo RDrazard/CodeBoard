@@ -66,11 +66,11 @@
                         <h2>{{author}}'s Snippet</h2>
                         <div class="border"></div>
                     <div id="codeboard">
-                        <div style="float: left; width: 200px;"></div>
-                        <div id='snippet' style="float: left; width: 200px;">
+                        <div style="width: 200px; margin: 0 auto;"></div>
+                        <div id='snippet' style="width: 200px; margin: 0 auto;">
                             <pre class="prettyprint">{{code}}</pre>
                         </div>
-                        <div style="float: left; width: 200px;">
+                        <div style="width: 200px; margin: 0 auto;">
                             <ul>
                             %for annote in annotes:
                                 <li>{{annote['uid']}} annoted: {{annote['text']}}</li>
@@ -80,11 +80,11 @@
                     </div>
                 </div>
                 </div>
-            <form method="POST" action="/annote/{{snippet}}" id="add-annote">
+            <form method="POST" action="/annote/{{snippet}}" id="add-annote" style="margin: 0 auto;">
                 <input type="text" name="annote" id="annote-input" />
                 <input type="submit" value="Submit Annote"/>
             </form>
-            <form method="POST" action="/note/{{snippet}}" id="add-note">
+            <form method="POST" action="/note/{{snippet}}" id="add-note" style="margin: 0 auto;">
                 <input type="text" name="note" id="note-input" />
                 <input type="submit" value="Submit Note" />
             </form>
