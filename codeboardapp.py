@@ -28,7 +28,7 @@ def user_find(email):
   return mongo_db.users.find_one({ '_id': email})
 
 @bottle.route('/', method="POST")
-def user_create():
+def index():
   data = bottle.request.forms
   if data.get('email'):
     # check for pre existance
@@ -45,6 +45,10 @@ def user_create():
   else:
     result = None
   return bottle.template('index', result=result)
+
+@bottle.route('/', method="GET")
+def index():
+  return bottle.template('index', result=None)
 
 def snippet_create(user, code):
   nsnippet = {
