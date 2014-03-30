@@ -56,7 +56,7 @@ def snippet_create(user, code):
     'code': code
     }
   mongo_db.snippets.insert(nsnippet)
-  return nsnippet['id']
+  return nsnippet['_id']
 
 def note_create(snip, user, text):
   nnote = {
