@@ -441,7 +441,7 @@ form fieldset { font-size: 16px; }
 form button { padding-top: 5px; }
 
 .heading.welcome { font-size: 48px; }
-.border { width: 600px; margin: 20px auto; }
+.border { width: 600px!important; margin: 20px auto!important; }
 .border.long { width: 300px; }
 .heading.welcome legend.welcome { font-size: 32px; }
 .heading.welcome a.welcome { font-size: 24px; margin: 35px; }
