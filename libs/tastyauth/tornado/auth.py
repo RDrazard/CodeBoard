@@ -53,7 +53,6 @@ import hmac
 import logging
 import time
 import urllib
-import urlparse
 import uuid
 import pprint
 
@@ -271,7 +270,7 @@ class OpenIdMixin(GenericAuth):
             method="POST", body=urllib.urlencode(args))
 
     def _openid_args(self, callback_uri, ax_attrs=[], oauth_scope=None):
-        url = urlparse.urljoin(self.request.full_url(), callback_uri)
+        url = urllib.urljoin(self.request.full_url(), callback_uri)
         args = {
             "openid.ns": "http://specs.openid.net/auth/2.0",
             "openid.claimed_id":
@@ -279,7 +278,7 @@ class OpenIdMixin(GenericAuth):
             "openid.identity":
                 "http://specs.openid.net/auth/2.0/identifier_select",
             "openid.return_to": url,
-            "openid.realm": urlparse.urljoin(url, '/'),
+            "openid.realm": urllib.urljoin(url, '/'),
             "openid.mode": "checkid_setup",
         }
         if ax_attrs:
@@ -457,7 +456,7 @@ class OAuthMixin(GenericAuth):
         )
         if getattr(self, "_OAUTH_VERSION", "1.0a") == "1.0a":
             if callback_uri:
-                args["oauth_callback"] = urlparse.urljoin(
+                args["oauth_callback"] = urllib.urljoin(
                     self.request.full_url(), callback_uri)
             if extra_params: args.update(extra_params)
             signature = _oauth10a_signature(consumer_token, "GET", url, args)
@@ -476,7 +475,7 @@ class OAuthMixin(GenericAuth):
         self.set_cookie("_oauth_request_token", data)
         args = dict(oauth_token=request_token["key"])
         if callback_uri:
-            args["oauth_callback"] = urlparse.urljoin(
+            args["oauth_callback"] = urllib.urljoin(
                 self.request.full_url(), callback_uri)
         self.redirect(authorize_url + "?" + urllib.urlencode(args))
 
@@ -963,11 +962,11 @@ class FacebookMixin(GenericAuth):
             "v": "1.0",
             "fbconnect": "true",
             "display": "page",
-            "next": urlparse.urljoin(self.request.full_url(), callback_uri),
+            "next": urllib.urljoin(self.request.full_url(), callback_uri),
             "return_session": "true",
         }
         if cancel_uri:
-            args["cancel_url"] = urlparse.urljoin(
+            args["cancel_url"] = urllib.urljoin(
                 self.request.full_url(), cancel_uri)
         if extended_permissions:
             if isinstance(extended_permissions, (unicode, bytes_type)):
@@ -1260,7 +1259,7 @@ def _oauth_signature(consumer_token, method, url, parameters={}, token=None):
 
     See http://oauth.net/core/1.0/#signing_process
     """
-    parts = urlparse.urlparse(url)
+    parts = urllib.urllib(url)
     scheme, netloc, path = parts[:3]
     normalized_url = scheme.lower() + "://" + netloc.lower() + path
 
@@ -1283,7 +1282,7 @@ def _oauth10a_signature(consumer_token, method, url, parameters={}, token=None):
 
     See http://oauth.net/core/1.0a/#signing_process
     """
-    parts = urlparse.urlparse(url)
+    parts = urllib.urllib(url)
     scheme, netloc, path = parts[:3]
     normalized_url = scheme.lower() + "://" + netloc.lower() + path
 
