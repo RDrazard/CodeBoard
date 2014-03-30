@@ -110,9 +110,9 @@ def user_auth(user, pw):
   if not user: return False
   return user['pw'] == pw
 
-def snippet_find_by_id(post_id):
+def snippet_find_by_id(snip_id):
   if not post_id: return None
-  return mongo_db.posts.find_one({ '_id': post_id})
+  return mongo_db.snippets.find_one({ '_id': snip_id})
 
 reserved_usernames = 'home signup login logout post static DEBUG note annote'
 
