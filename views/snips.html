@@ -62,7 +62,9 @@
         <section id="get-started" class="page">
             <div class="container">
                 <div class="content text-center">
-                    <h1>{{author}}'s Snippet</h1>
+                    <div class="heading">
+                        <h2>{{author}}'s Snippet</h2>
+                        <div class="border"></div>
                     <div id="codeboard">
                         <div style="float: left; width: 200px;"></div>
                         <div id='snippet' style="float: left; width: 200px;">
@@ -76,6 +78,7 @@
                             </ul>
                         </div>
                     </div>
+                </div>
                 </div>
             <form method="POST" action="/annote/{{snippet}}" id="add-annote">
                 <p><input type="text", name="annote", id="annote-input"/></p>
