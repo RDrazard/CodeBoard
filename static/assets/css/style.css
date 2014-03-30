@@ -436,4 +436,6 @@ a:hover, a:focus {
 
 #footer.small-footer { height: 50px; line-height: 50px; padding: 0; }
 
-form input { margin: 10px auto!important; }
+form input { margin: 10px auto!important; width: 220px!important; }
+
+form fieldset { font-size: 16px; }
