@@ -435,3 +435,5 @@ a:hover, a:focus {
 .get-started-btn { font-size: 18px; }
 
 #footer.small-footer { height: 50px; line-height: 50px; padding: 0; }
+
+form input { margin: 10px auto; }
