@@ -1,4 +1,4 @@
-from urlparse import urlparse
+import urllib.parse
 import re
 
 from tastyauth.tornado.auth import TwitterMixin, GoogleMixin, FacebookGraphMixin
