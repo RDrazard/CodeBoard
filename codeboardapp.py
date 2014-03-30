@@ -148,7 +148,7 @@ def dashboard():
                          username=luser['_id'],
                          logged=True)
 
-@bottle.route('/dashboard', method="POST")
+@bottle.route('/snippets', method="POST")
 def post_snippet():
   session = get_session()
   luser = user_find(session['uid'])
