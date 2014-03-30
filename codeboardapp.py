@@ -154,7 +154,7 @@ def post_snippet():
   luser = user_find(session['uid'])
   if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
-  snippet_create(luser['_id'], 'print("Hello world")')
+  snippet_create(luser, 'print("Hello world")')
 
 @bottle.route('/snippets/<id>')
 def snippet_page(id):
