@@ -30,21 +30,21 @@ def user_find(email):
 @bottle.route('/', method="POST")
 def index():
   data = bottle.request.forms
-  if data.get('email'):
-    # check for pre existance
-    tuser = user_find(data.get('email'))
-    if tuser:
-      result = 'You are already registered!'
-    else:
-      nuser = {
-        '_id': data.get('email'),
-        'pw': data.get('password')
-      }
-      userid = mongo_db.users.insert(nuser)
-      result = 'You\'ve been signed up!'
-  else:
-    result = None
-  return bottle.template('index', result=result)
+  # if data.get('email'):
+  #   # check for pre existance
+  #   tuser = user_find(data.get('email'))
+  #   if tuser:
+  #     result = 'You are already registered!'
+  #   else:
+  #     nuser = {
+  #       '_id': data.get('email'),
+  #       'pw': data.get('password')
+  #     }
+  #     userid = mongo_db.users.insert(nuser)
+  #     result = 'You\'ve been signed up!'
+  # else:
+  #   result = None
+  return bottle.template('index', result='Test')
 
 @bottle.route('/')
 def index():
