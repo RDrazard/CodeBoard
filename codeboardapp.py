@@ -142,8 +142,8 @@ def dashboard():
   
   # bottle.TEMPLATES.clear()
   return bottle.template('dashboard',
-                         #postlist=postlist,
-                         userlist=user_list(),
+                         # postlist=postlist,
+                         # userlist=user_list(),
                          page='dashboard',
                          username=luser['_id'],
                          logged=True)
