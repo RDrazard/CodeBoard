@@ -56,6 +56,7 @@ def snippet_create(user, code):
     'code': code
     }
   mongo_db.snippets.insert(nsnippet)
+  return nsnippet['id']
 
 def note_create(snip, user, text):
   nnote = {
@@ -148,10 +149,6 @@ def dashboard():
                          username=luser['_id'],
                          logged=True)
 
-@bottle.route('/snippets')
-def show_snippets():
-  return bottle.template('snips')
-
 @bottle.route('/snippets', method="POST")
 def post_snippet():
   session = get_session()
@@ -159,8 +156,8 @@ def post_snippet():
   if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
   if 'code' in bottle.request.POST:
-    snippet_create(luser, bottle.request.POST['code'])
-  bottle.redirect('/snippets')
+    s_id = snippet_create(luser, bottle.request.POST['code'])
+  bottle.redirect('/snippets/' + s_id)
 
 @bottle.route('/snippets/<id>')
 def snippet_page(id):
