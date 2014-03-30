@@ -82,16 +82,17 @@
                         <div class="border"></div>
                         <h3>Type in a snippet and submit it for review.<br /></h3>
                         <hr />
-                        
-                        <form class="form-signin", role="form", action="/"
                     </div>
                 </div>
-                <div id="editor">
-                    function foo(items) {
-                        var x = "All this is syntax highlighted";
-                        return x;
-                    }
-                </div>
+                <form class="form-signin", role="form", action="/dashboard", method="post">
+                    <textarea id="editor" name="code">
+                        function foo(items) {
+                            var x = "All this is syntax highlighted";
+                            return x;
+                        }
+                    </textarea>
+                    <button class="btn btn-lg btn-primary btn-block login-button" type="submit">Post Snippet</button>
+                </form>
             </div>
         </section>
         <footer id="footer" class="small-footer">
