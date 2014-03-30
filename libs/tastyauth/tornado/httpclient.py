@@ -20,7 +20,7 @@ http://code.google.com/appengine/docs/urlfetch/
 
 import httplib
 import socket
-import urlparse
+import urllib.parse
 
 # Constants
 GET = 'GET'
@@ -51,7 +51,7 @@ class SyncHTTPClient(object):
         else:
             payload = ''
         for redirect_number in xrange(MAX_REDIRECTS+1):
-            scheme, host, path, params, query, fragment = urlparse.urlparse(url)
+            scheme, host, path, params, query, fragment = urllib.parse.urllib.parse(url)
             try:
                 if scheme == 'http':
                     connection = httplib.HTTPConnection(host)
@@ -86,7 +86,7 @@ class SyncHTTPClient(object):
                     if newurl is None:
                         raise DownloadError('Redirect is missing Location header.')
                     else:
-                        url = urlparse.urljoin(url, newurl)
+                        url = urllib.parse.urljoin(url, newurl)
                         method = 'GET'
                 else:
                     response = Response()
@@ -98,7 +98,7 @@ class SyncHTTPClient(object):
                         response.headers[header_key] = header_value
                     return response
 
-            except (httplib.error, socket.error, IOError), e:
+            except (httplib.error, socket.error, IOError) as e:
                 response = Response()
                 response.request = Request(full_path)
                 response.error = str(e) or 'unknown error'
