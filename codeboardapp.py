@@ -220,7 +220,7 @@ def annote(snip):
 def get_login():
   session = get_session()
   # bottle.TEMPLATES.clear()
-  if session: bottle.redirect('/home')
+  if session: bottle.redirect('/dashboard')
   return bottle.template('login',
 			 page='login',
 			 error_login=False,
