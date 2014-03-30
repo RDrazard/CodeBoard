@@ -41,7 +41,7 @@ def index():
         'pw': data.get('password')
       }
       userid = mongo_db.users.insert(nuser)
-      return bottle.template('welcome', result='You\'ve been signed up!')
+      return bottle.template('welcome', result='You\'ve been signed up!', email=data.get('email'))
   else:
     return bottle.template('index', result=None)
 

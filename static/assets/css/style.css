@@ -439,3 +439,8 @@ a:hover, a:focus {
 form input { margin: 10px auto!important; width: 220px!important; height: 35px!important; padding: 5px!important;}
 form fieldset { font-size: 16px; }
 form button { padding-top: 5px; }
+
+.heading.welcome { font-size: 54px; }
+.border.long { width: 300px; }
+.heading.welcome legend.welcome { font-size: 36px; }
+.heading.welcome a.welcome { font-size: 32px; margin: 35px; }
