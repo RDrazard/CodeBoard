@@ -46,7 +46,7 @@ def index():
     result = None
   return bottle.template('index', result=result)
 
-@bottle.route('/', method="GET")
+@bottle.route('/')
 def index():
   return bottle.template('index')
 
