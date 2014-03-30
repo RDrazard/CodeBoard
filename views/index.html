@@ -11,6 +11,7 @@
         <link href="static/assets/css/style.css" rel="stylesheet">
         <link href="static/assets/css/animate.min.css" rel="stylesheet">
         <link href="static/assets/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://yui.yahooapis.com/combo?pure/0.4.2/base-min.css&pure/0.4.2/buttons-min.css&pure/0.4.2/forms-min.css"  rel="stylesheet">
         <!--[if lt IE 9]>
         <script src="static/assets/js/html5shiv.js"></script>
         <script src="static/assets/js/respond.min.js"></script>
@@ -93,24 +94,30 @@
             <div class="container">
                 <div class="content text-center">
                     <div class="heading">
-                        <h2>Let's begin.</h2>
+                        <h2>There's no hassle, so let's begin.</h2>
                         <div class="border"></div>
-                        <h3>All you need is a Google+ or Facebook account to start using CodeBoard.<br /></h3>
-                        <hr />
-                        <h2>No hassle.</h2>
-                        <div class="border"></div>
-                        <h3>Just click to sign in with your preferred<br />social network account.<br /><br /><br /></h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 service animated hiding" data-animation="fadeInUp" data-delay="300">
-                            <!-- INSERT GOOGLE+ BUTTON HERE -->
-                            <div id="result"></div>
-                            <h2><a href="/google/login">Get Started with Google+</a></h2>
-                        </div>
-                        <div class="col-lg-6 service animated hiding" data-animation="fadeInUp" data-delay="600">
-                            <i class="fa fa-cloud fa-3x"></i>
-                            <h2><a href="#">Get Started with Facebook</a></h2>
-                        </div>
+                        <form class="pure-form pure-form-aligned">
+                            <fieldset>
+                                <div class="pure-control-group">
+                                    <label for="name">Username</label>
+                                    <input id="name" type="text" placeholder="Username">
+                                </div>
+
+                                <div class="pure-control-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" type="password" placeholder="Password">
+                                </div>
+
+                                <div class="pure-control-group">
+                                    <label for="email">Email Address</label>
+                                    <input id="email" type="email" placeholder="Email Address">
+                                </div>
+
+                                <div class="pure-controls">
+                                    <button type="submit" class="pure-button pure-button-primary">Register</button>
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
