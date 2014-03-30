@@ -40,8 +40,8 @@ def user_create():
       '_id': data.get('email'),
       'pw': data.get('password')
     }
-  userid = mongo_db.users.insert(nuser)
-  result = 'You\'ve been signed up!'
+    userid = mongo_db.users.insert(nuser)
+    result = 'You\'ve been signed up!'
   return bottle.template('index', result=result)
 
 def snippet_create(user, code):
