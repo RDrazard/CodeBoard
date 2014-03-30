@@ -148,21 +148,16 @@ def dashboard():
                          username=luser['_id'],
                          logged=True)
 
-@bottle.route('/<name>')
-def user_page(name):
+@bottle.route('/dashboard', method="POST")
+def post_snippet():
   session = get_session()
   luser = user_find(session['uid'])
-  if not luser: bottle.redirect('/logout')
-  tuser = user_find(name)
-  if not tuser: return bottle.HTTPError(code=404)
-  himself = session['uid'] == tuser['_id']
-  
+  if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
-  return bottle.template('user',
-                         page='user',
-                         username=tuser['_id'],
-                         logged=True,
-                         himself=himself)
+  return bottle.template('dashboard',
+                         page='dashboard',
+                         username=luser['_id'],
+                         logged=True)
 
 @bottle.route('/<name>/snippets')
 def snippet_page(name):
