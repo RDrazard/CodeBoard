@@ -5,7 +5,6 @@ import os
 import uuid
 import bottle
 import pymongo
-from libs.tastyauth import Twitter, Facebook, Google, UserDenied, NegotiationError, settings
 
 bottle.debug(True)
 
