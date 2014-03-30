@@ -158,7 +158,8 @@ def post_snippet():
   luser = user_find(session['uid'])
   if not luser: bottle.redirect('/logout')  
   # bottle.TEMPLATES.clear()
-  snippet_create(luser, bottle.requests.form.get('code'))
+  if 'code' in bottle.request.POST:
+    snippet_create(luser, bottle.request.POST['code'])
   bottle.redirect('/snippets')
 
 @bottle.route('/snippets/<id>')
