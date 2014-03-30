@@ -97,15 +97,15 @@
                         <h1>There's no hassle, so let's begin.</h1>
                         <div class="border"></div><br />
                         % if defined('result'):
-                            <legend>{{ get('result') }}</legend>
+                            <legend>{{ bottle.get('result') }}</legend>
                         % end
                         <form class="pure-form pure-form-stacked" action="/" method="post">
                             <fieldset>
                                 <label for="email">Email Address</label>
-                                <input id="email" type="email" placeholder="Email">
+                                <input id="email" type="email" name="email" placeholder="Email">
 
                                 <label for="password">Password</label>
-                                <input id="password" type="password" placeholder="Password">
+                                <input id="password" type="password" name="password" placeholder="Password">
 
                                 <button type="submit" class="pure-button pure-button-primary">Register</button>
                             </fieldset>
