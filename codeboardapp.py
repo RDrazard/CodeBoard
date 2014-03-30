@@ -30,15 +30,15 @@ def user_find(email):
 @bottle.route('/', method="POST")
 def user_create():
   data = bottle.request.forms
-  if not data['email']: return None
+  if not data.get('email'): return None
   # check for pre existance
-  tuser = user_find(data['email'])
+  tuser = user_find(data.get('email'))
   if tuser:
     result = 'You are already registered!'
   else:
     nuser = {
-      '_id': data['email'],
-      'pw': data['password']
+      '_id': data.get('email'),
+      'pw': data.get('password')
     }
   userid = mongo_db.users.insert(nuser)
   result = 'You\'ve been signed up!'
