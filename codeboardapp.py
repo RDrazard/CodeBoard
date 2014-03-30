@@ -142,7 +142,7 @@ def dashboard():
   
   # bottle.TEMPLATES.clear()
   return bottle.template('dashboard',
-                         postlist=postlist,
+                         #postlist=postlist,
                          userlist=user_list(),
                          page='dashboard',
                          username=luser['_id'],
