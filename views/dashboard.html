@@ -78,7 +78,7 @@
                 </div>
                 <form class="form-snippet" role="form" action="/snippets" method="post"><div id="editor" name="editor">print("Hello world")</div>
                     <textarea id="code" style="display: none;" name="code"></textarea>
-                    <button class="btn btn-lg btn-primary btn-block post-snippet" onclick="document.getElementById('code').value=document.getElementById('editor').innerHTML" type="submit">Post Snippet</button>
+                    <button class="btn btn-lg btn-primary btn-block post-snippet" onclick="document.getElementById('code').value=editor.getValue();" type="submit">Post Snippet</button>
                 </form>
             </div>
         </section>
