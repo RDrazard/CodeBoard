@@ -451,3 +451,20 @@ form button { padding-top: 5px; }
 .login-page { background-color: #D1EEEE; }
 
 #disqus_thread { width: 80%; margin: 0 auto; }
+
+.snippet 
+{ 
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#editor 
+{ 
+    position: relative;
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+}
+.post-snippet { margin: 20px auto; width: 200px; }
