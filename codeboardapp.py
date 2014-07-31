@@ -24,11 +24,13 @@ mongo_db.authenticate(os.environ['OPENSHIFT_MONGODB_DB_USERNAME'],
 #                      'codeboard')
 
 def user_find(email):
+  """Returns a user DB entry by using the user's email address."""
   if not email: return None
   return mongo_db.users.find_one({ '_id': email})
 
 @bottle.route('/', method="POST")
 def index():
+  """Controls the form on index.html. Either registers the user or tells them they already have an account."""
   data = bottle.request.forms
   if data.get('email'):
     # check for pre existance
@@ -47,9 +49,11 @@ def index():
 
 @bottle.route('/')
 def index():
+  """Loads the basic template for index.html"""
   return bottle.template('index')
 
 def snippet_create(user, code):
+  """Creates a code snippet and inserts it into the snippets MongoDB table."""
   nsnippet = {
     '_id': uuid.uuid4().hex,
     'uid': user['_id'],
@@ -59,6 +63,7 @@ def snippet_create(user, code):
   return nsnippet
 
 def note_create(snip, user, text):
+  """Creates a note and inserts it into the notes MongoDB table."""
   nnote = {
     '_id': uuid.uuid4().hex,
     'uid': user['_id'],
@@ -68,6 +73,7 @@ def note_create(snip, user, text):
   mongo_db.notes.insert(nnote)
 
 def annote_create(snip, user, text):
+  """Creates an annote and inserts it into the notes MongoDB table."""
   nannote = {
     '_id': uuid.uuid4().hex,
     'uid': user['_id'],
@@ -77,6 +83,7 @@ def annote_create(snip, user, text):
   mongo_db.notes.insert(nannote)
 
 def user_list():
+  """Returns a list of registered users' email addresses."""
   l = []
   for u in mongo_db.users.find():
     l.append(u['_id'])
@@ -84,7 +91,9 @@ def user_list():
   return l
 
 def snippet_list(user):
+  """Returns a list of code snippets that belong to user."""
   l = []
+  #speed issues?
   for s in mongo_db.snippets.find():
       if s['uid'] == user:
         l.append(s)
@@ -92,7 +101,9 @@ def snippet_list(user):
   return l
 
 def note_list(snippet):
+  """Returns a list of notes that are tagged on snippet."""
   l = []
+  #speed?
   for n in mongo_db.notes.find():
     if n['cid'] == snippet:
       l.append(n)
@@ -100,7 +111,9 @@ def note_list(snippet):
   return l
 
 def annote_list(snippet):
+  """Returns a list of annotes that are tagged on snippet."""
   l = []
+  #speed?
   for a in mongo_db.annotes.find():
     if a['cid'] == snippet:
       l.append(a)
@@ -108,13 +121,16 @@ def annote_list(snippet):
   return l
 
 def user_auth(user, pw):
+  """Checks if user and password match. Temporary."""
   if not user: return False
   return user['pw'] == pw
 
 def snippet_find_by_id(snip_id):
+  """Finds a code snippet by its uuid."""
   if not snip_id: return None
   return mongo_db.snippets.find_one({ '_id': snip_id})
 
+#anti-hax
 reserved_usernames = 'home signup login logout post static DEBUG note annote'
 
 bottle.TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'views'))
