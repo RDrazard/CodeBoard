@@ -12,5 +12,5 @@ CodeBoard was designed to be used in an educational context, but can be easily a
 
 ## Project Authors
 
-- Taylor Foxhall ([@hallfox](https://github.com/hallfox/))
-- Alan Plotko ([@alanplotko](https://github.com/alanplotko/))
+- Taylor Foxhall ([@hallfox](https://github.com/hallfox))
+- Alan Plotko ([@alanplotko](https://github.com/alanplotko))
